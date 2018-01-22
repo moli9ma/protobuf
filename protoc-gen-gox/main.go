@@ -52,7 +52,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/golang/protobuf/proto"
+	"github.com/moli9ma/protobuf/proto"
 	"github.com/moli9ma/protobuf/protoc-gen-gox/generator"
 )
 

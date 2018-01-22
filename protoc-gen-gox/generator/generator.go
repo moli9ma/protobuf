@@ -52,10 +52,9 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/golang/protobuf/proto"
-
-	"github.com/golang/protobuf/protoc-gen-go/descriptor"
-	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
+	"github.com/moli9ma/protobuf/proto"
+	"github.com/moli9ma/protobuf/protoc-gen-gox/descriptor"
+	plugin "github.com/moli9ma/protobuf/protoc-gen-gox/plugin"
 )
 
 // generatedCodeVersion indicates a version of the generated code.
@@ -1781,8 +1780,12 @@ func (g *Generator) generateMessage(message *Descriptor) {
 		ns := allocNames(base, "Get"+base)
 		fieldName, fieldGetterName := ns[0], ns[1]
 		typename, wiretype := g.GoType(message, field)
-		jsonName := *field.Name
-		tag := fmt.Sprintf("protobuf:%s json:%q", g.goTag(message, field, wiretype), jsonName)
+
+		jsontag := *field.Name + ",omitempty"
+		if jsonName := field.GetJsonName(); jsonName != "" {
+			jsontag = jsonName
+		}
+		tag := fmt.Sprintf("protobuf:%s json:%q", g.goTag(message, field, wiretype), jsontag)
 
 		fieldNames[field] = fieldName
 		fieldGetterNames[field] = fieldGetterName
