@@ -1781,7 +1781,7 @@ func (g *Generator) generateMessage(message *Descriptor) {
 		fieldName, fieldGetterName := ns[0], ns[1]
 		typename, wiretype := g.GoType(message, field)
 
-		jsontag := *field.Name + ",omitempty"
+		jsontag := *field.Name
 		if *field.Name != *field.JsonName {
 			jsontag = *field.JsonName
 		}
