@@ -1782,8 +1782,8 @@ func (g *Generator) generateMessage(message *Descriptor) {
 		typename, wiretype := g.GoType(message, field)
 
 		jsontag := *field.Name + ",omitempty"
-		if jsonName := field.GetJsonName(); jsonName != "" {
-			jsontag = jsonName
+		if *field.Name != *field.JsonName {
+			jsontag = *field.JsonName
 		}
 		tag := fmt.Sprintf("protobuf:%s json:%q", g.goTag(message, field, wiretype), jsontag)
 
